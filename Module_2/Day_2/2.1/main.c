@@ -50,19 +50,7 @@ void addNewContact(Contact* contacts, char* name, char* lastname, int* num_conta
     contacts[*num_contact].id = *num_contact;
     (*num_contact)++; // кол-во контактов ++
 }
-// Не рабочая функция
-int addValueForArray(char** array, char* newValue, int numberVal, int lenPole, int countPole){ // если numberVal -1 то значение добавляется в конец 
-    int countNotNull = 0;
-    for(; strlen(array[countNotNull])!=0; countNotNull++)
-    printf(" dfsf");
-    printf("%d %d",numberVal, countNotNull);
-    if(numberVal > countNotNull || countNotNull >= countPole-1) return -1;
-    if(numberVal == -1){
-    strncpy(array[countNotNull], newValue, lenPole);
-    } else {
-    strncpy(array[numberVal], newValue, lenPole);
-    }
-}
+
 int updateValueForArray(Contact* contacts, char* str, char whatUpdate, int num_contact, int num_change){
     int countNotNull = 0;
     if(whatUpdate == 'f'){
@@ -126,36 +114,36 @@ int deleteContact(Contact* contacts, int id, int* count_contacts){
     }
     else return -1;
 }
+void printOneContactAllInfo(Contact* contacts, int id){
+    int countNotNull = 1;
+    
+    printf("%d\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\n", contacts[id].id,
+        contacts[id].firstName, contacts[id].lastName, contacts[id].fatherName,
+        contacts[id].placeOfWork, contacts[id].jobTitle,
+        contacts[id].phoneNumbers[0], contacts[id].emails[0],
+        contacts[id].linksToSocialNetwork[0], contacts[id].messengers[0]);
+        for(; strlen(contacts[id].messengers[countNotNull])!=0 || strlen(contacts[id].phoneNumbers[countNotNull])!=0 || strlen(contacts[id].linksToSocialNetwork[countNotNull]) !=0 || strlen(contacts[id].emails[countNotNull])!=0; countNotNull++) 
+            printf("\t\t\t\t\t\t\t\t\t\t\t%d.\t\t%s\t\t%s\t\t%s\t\t%s\n", countNotNull, 
+            contacts[id].phoneNumbers[countNotNull], contacts[id].emails[countNotNull],
+            contacts[id].linksToSocialNetwork[countNotNull], contacts[id].messengers[countNotNull]);
+    
+}
+
 void printContactsAllInfo(Contact* contacts, int count_contacts) 
 {
-    int cPhone = 0, cEmail = 0, cLink = 0, cMessenger = 0, countNotNull = 1;
+    int countNotNull = 1;
     printf("ID\t|\tИмя\t|\tФамилия\t|\tОтчество\t|\tМесто_работы\t|\tДолжность\t|\tТелефон\t|\tЭл.почта\t|\tСоцсеть\t|\tМессенджер |\n");
     for(int i = 0; i<count_contacts; i++){
-        printf("%d\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\n", contacts[i].id,
-        contacts[i].firstName, contacts[i].lastName, contacts[i].fatherName,
-        contacts[i].placeOfWork, contacts[i].jobTitle,
-        contacts[i].phoneNumbers[0], contacts[i].emails[0],
-        contacts[i].linksToSocialNetwork[0], contacts[i].messengers[0]);
-        
-        for(; strlen(contacts[i].messengers[countNotNull])!=0 || strlen(contacts[i].phoneNumbers[countNotNull])!=0 || strlen(contacts[i].linksToSocialNetwork[countNotNull]) !=0 || strlen(contacts[i].emails[countNotNull])!=0; countNotNull++) printf("\t\t\t\t\t\t\t\t\t\t\t\t%d.\t\t%s\t\t%s\t\t%s\t\t%s\n", countNotNull, 
-        contacts[i].phoneNumbers[countNotNull], contacts[i].emails[countNotNull],
-        contacts[i].linksToSocialNetwork[countNotNull], contacts[i].messengers[countNotNull]);
-        countNotNull = 1;
-        //for(; strlen(contacts[i].messengers[cEmail])!=0; cEmail++);
-        //for(; strlen(contacts[i].messengers[cLink])!=0; countNotNull++);
-        //for(; strlen(contacts[i].messengers[cMessenger])!=0; countNotNull++);
-        
-        //if(strlen())
+        printOneContactAllInfo(contacts, i);
     }
 }
 void printContactsSmall(Contact* contacts, int count_contacts) 
 {
- printf("ID\t|\tИмя\t|\tФамилия\t|\tТелефон\t|\tЭл.почта\t|\n");
+ printf("ID\t|\tИмя\t|\tФамилия\t\t|\tТелефон\t\t|\tЭл.почта\t|\n");
  for(int i = 0; i<count_contacts; i++)
      printf("%d\t\t%s\t\t%s\t\t%s\t\t%s\n", contacts[i].id,
     contacts[i].firstName, contacts[i].lastName,
     contacts[i].phoneNumbers[0], contacts[i].emails[0]);
-    //if (0);
 }
 int main()
 {
@@ -163,16 +151,25 @@ int main()
     int count_contacts = 0;
     int* pcount = &count_contacts;
     char operation;
+    int whatdo;
+    char BUFFER[BUFFER_SIZE];
+    char BUFFER1[BUFFER_SIZE];
+    int BUFFINT, BUFFINT2;
+
+// Инициализация начальных данных в контактах
     addNewContact(contacts, "Nikita", "Sizykh", pcount);
     addNewContact(contacts, "Nikita", "Anisimov", pcount);
-    updateContact(contacts,"Kirilllll", 'b', 1);
-    printContactsSmall(contacts, count_contacts);
-    printf("Текушее количество контактов: %d\n",count_contacts);
-    deleteContact(contacts, 0, pcount);
+    updateContact(contacts,"Gigachad", 'b', 0);
+    deleteContact(contacts, 1, pcount);
     addNewContact(contacts, "Nikita", "Anisimov", pcount);
-    //strncpy(contacts[0].firstName,"123123",30);
-    
-    //addValueForArray(contacts[0].phoneNumbers[0], "+79834561665", -1, LEN_PHONE, COUNT_OF_PHONE);
+    updateContact(contacts, "Студент", 'e', 0);
+    updateContact(contacts, "Вуз", 'd', 0);
+    updateContact(contacts, "vk.com/id01010101", 'j', 0);
+    updateContact(contacts, "@niiiiiita", 'k', 0);
+    updateContact(contacts, "Студент", 'e', 1);
+    updateContact(contacts, "ВУЗ", 'd', 1);
+    updateContact(contacts, "vk.com/anisik", 'j', 1);
+    updateContact(contacts, "@anime", 'k', 1);
     updateContact(contacts, "+79834561665", 'f',1);
     updateContact(contacts, "+79834561665", 'f',1);
     updateContact(contacts, "nuk@mail.ru", 'g',1);
@@ -180,20 +177,83 @@ int main()
     updateContact(contacts, "nik.nik@gmail.ru", 'g',0);
     updateContact(contacts, "nikittta@mail.ru", 'g',0);
     updateContact(contacts, "+7981232453", 'f',0);
-    
     updateContact(contacts, "+79832432423", 'f',0);
-
     updateValueForArray(contacts, "+7xxxxxx",'f',0,1);
-    printContactsAllInfo(contacts, count_contacts);
-    
+
+    addNewContact(contacts, "Kirill", "Temnikov", pcount);
+    updateContact(contacts, "88005553535", 'f',2);
+    updateContact(contacts, "reclama@adddd.ru", 'g',2);
+
+// пользовательское меню в беск. цикле
+
     while(1) {
-        //system("clear");
-        
+
+        system("clear");
+        fflush(stdin);
         printf("Список контактов:\n");
         printContactsSmall(contacts, count_contacts);
-        scanf("%c", &operation);
-        //fgets(operation, 2, stdin);
-        printf("%c",operation);
+        printf("Текушее количество контактов: %d\n",count_contacts);    
+        printf("Выбери действие:\n");
+        printf("1 - Создать новый контакт\n"
+        "2 - Удалить контакт\n"
+        "3 - Обновить контакт\n"
+        "4 - Вывести полную информацию о контактах\n"
+        "5 - Выйти\n");
+        scanf("%d", &whatdo);
+
+
+
+
+        switch(whatdo){
+            case 1:
+                printf("Введите имя и фамилию:\n");
+                scanf("%s %s", BUFFER,BUFFER1);
+                addNewContact(contacts, BUFFER, BUFFER1, pcount);
+                break;
+            case 2:
+                printf("ВведитеID удаляемого контакта:\n");
+                scanf("%d", &BUFFINT);
+                deleteContact(contacts, BUFFINT, pcount);
+                break;
+            case 3:
+                printf("Введите ID обновляемого контакта:\n");
+                scanf("%d", &BUFFINT);
+                if(BUFFINT > count_contacts-1) break;
+                printf("ID\t|\tИмя(a)\t|\tФамилия(b)\t|\tОтчество(c)\t|\tМесто_работы(d)\t|\tДолжность(e)\t|\tТелефон(f)\t|\tЭл.почта(g)\t|\tСоцсеть(j)\t|\tМессенджер(k) |\n");
+                printOneContactAllInfo(contacts, BUFFINT);
+                printf("Введите, что вы хотите обновить (введите один символ который указан после нужного поля)\n");
+                scanf("%c", &operation);
+                while(operation=='\n') scanf("%c", &operation);
+                if(operation == 'f' || operation == 'g' || operation == 'j' || operation == 'k'){
+                    printf("Вы хотите перезаписать или добавить ещё одно значение? (1 - перезаписать; 0 - добавить)\n");
+                    scanf("%d", &BUFFINT2);
+                    if(BUFFINT2){
+                        printf("Введите номер изменяемого поля (Самое первое поле имеет номер 0)\n");
+                        scanf("%d", &BUFFINT2);
+                        printf("Введите новое значение поля:\n");
+                        scanf("%s", BUFFER);
+                        updateValueForArray(contacts, BUFFER, operation, BUFFINT, BUFFINT2);
+                        break;
+                    }
+                }
+                printf("Введите новое значение поля:\n");
+                scanf("%s", BUFFER);
+                updateContact(contacts, BUFFER, operation, BUFFINT);
+                
+                break;
+            case 4:
+                printContactsAllInfo(contacts,count_contacts);
+                getc(stdin);
+                printf("\n.....Нажмите Enter.....\n");
+                getc(stdin);
+                break;
+            case 5:
+                return 0;
+                break;    
+            default:
+                
+        }
+
     }
     
 }
