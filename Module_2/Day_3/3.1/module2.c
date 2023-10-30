@@ -26,7 +26,7 @@ int setPermRWX(char* filename, char* outInfo, char* conditions){ //
     unsigned char group = 0, perm = 0, op;
     getPerm(filename, buf1);
     sscanf(conditions,"%[agou]%[+-=]%[rwx]",groups, operation, perms);
-    printf("%s %s %s\n", groups, operation, perms);
+    //printf("%s %s %s\n", groups, operation, perms);
     for(int i = 0; i< COUNT_GROUP; i++){
         switch(groups[i]){
             case 'a':
@@ -74,7 +74,8 @@ int setPermRWX(char* filename, char* outInfo, char* conditions){ //
             case '=':
                 for(int i = 0; i < LEN_MODE; i++){
 
-                    outInfo[LEN_MODE-i-1] = (1<<((i)/3))&group && 1<<((i)%3)&perm ? '1' : '0';
+                    //outInfo[LEN_MODE-i-1] = (1<<((i)/3))&group && 1<<((i)%3)&perm ? '1' : '0';
+                    outInfo[LEN_MODE-i-1] = (1<<((i)/3))&group ? (1<<((i)%3)&perm ? '1':'0') : buf1[LEN_MODE-i-1];  // если подходит по группе, меняем, если нет то оставляем
                 }
                 break;
     }
