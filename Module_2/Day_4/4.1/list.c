@@ -40,6 +40,7 @@ int deleteContact(List* list, int index) {        // удаление конта
     }  
     free(tmp->contact);
     free(tmp);
+    list->size--;
     return 0;
 }
 
@@ -134,7 +135,14 @@ int printList(List * list){
         tmp=tmp->next;
     }
 }
+int printListSmall(List * list){         
+    Node* tmp = list->head;
 
+    while(tmp){
+        printOneContactSmallInfo(tmp->contact);
+        tmp=tmp->next;
+    }
+}
 
 void deleteList(List ** list){      // удаление всего списка
     Node* tmp = (*list)->head;
@@ -153,4 +161,14 @@ int changeContactName(List* list, int index, char* name) {
     updateContact(tmpCon, name, 'a');
     inserting(list, tmpCon);
 
+}
+int updateIndexContact(List* list){
+    Node* tmp = list->head;
+    int index = 0;
+    while(tmp){
+        tmp->contact->id = index;
+        index++;
+        tmp=tmp->next;
+    }
+    return index;
 }

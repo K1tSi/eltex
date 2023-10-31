@@ -54,15 +54,41 @@ int updateContact(Contact* contact, char* str, char whatUpdate){
     }else return -1;
     return 0;
 }
+int updateValueForArray(Contact* contact, char* str, char whatUpdate, int num_change){
+    int countNotNull = 0;
+    if(whatUpdate == 'f'){
+        for(; strlen(contact->phoneNumbers[countNotNull])!=0; countNotNull++);
+        if(countNotNull>=COUNT_OF_PHONE-1 || num_change >= countNotNull) return -2;
+        strncpy(contact->phoneNumbers[num_change], str, LEN_PHONE);
+    }else if(whatUpdate == 'g'){
+        for(; strlen(contact->emails[countNotNull])!=0; countNotNull++);
+        if(countNotNull>=COUNT_OF_EMAIL-1 || num_change >= countNotNull) return -3;
+        strncpy(contact->emails[num_change], str, LEN_EMAIL);
+    } else if(whatUpdate == 'j'){
+        for(; strlen(contact->linksToSocialNetwork[countNotNull])!=0; countNotNull++);
+        if(countNotNull>=COUNT_OF_SOCIAL_NETWORK-1|| num_change >= countNotNull) return -4;
+        strncpy(contact->linksToSocialNetwork[num_change], str, LEN_LINK);
+    } else if(whatUpdate == 'k'){
+        for(; strlen(contact->messengers[countNotNull])!=0; countNotNull++);
+        if(countNotNull>=COUNT_OF_MESSENGER-1 || num_change >= countNotNull) return -5;
+        strncpy(contact->messengers[num_change], str, LEN_MESSENGER);
+    }
+    return 0;
+}
 void printOneContactAllInfo(Contact* contact){
     int countNotNull = 1;
-    printf("%d\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n", contact->id,
+    printf("%d\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", contact->id,
         contact->firstName, contact->lastName, contact->fatherName,
         contact->placeOfWork, contact->jobTitle,
         contact->phoneNumbers[0], contact->emails[0],
         contact->linksToSocialNetwork[0], contact->messengers[0]);
         for(; strlen(contact->messengers[countNotNull])!=0 || strlen(contact->phoneNumbers[countNotNull])!=0 || strlen(contact->linksToSocialNetwork[countNotNull]) !=0 || strlen(contact->emails[countNotNull])!=0; countNotNull++) 
-            printf("\t\t\t\t\t\t%d.\t%s\t%s\t%s\t%s\n", countNotNull, 
+            printf("\t\t\t\t\t\t\t\t\t%d. %-15s\t%-10s\t%-10s\t%-10s\n", countNotNull, 
             contact->phoneNumbers[countNotNull], contact->emails[countNotNull],
             contact->linksToSocialNetwork[countNotNull], contact->messengers[countNotNull]);
+}
+void printOneContactSmallInfo(Contact* contact){
+    printf("%d\t%-10s\t%-10s\t%-10s\t%-10s\n", contact->id,
+        contact->firstName, contact->lastName,
+        contact->phoneNumbers[0], contact->emails[0]);
 }

@@ -16,9 +16,12 @@ int insert(List *, Contact*);
 List* fromArray(Contact*, int, int);
 void deleteList(List **);
 int printList(List *);
+int printListSmall(List *);
 int swapContact(Node*, Node*);
 int inserting(List *, Contact*);
 int deleteContact(List* , int);
 int changeContactName(List*, int, char*);
 Contact* _deleteNodeSaveCont(List*, int);
+Contact* getContact(List* list, int index);
+int updateIndexContact(List* list);
 #endif /* LIST_H_ */

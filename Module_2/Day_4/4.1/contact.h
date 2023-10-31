@@ -11,7 +11,7 @@
 #define LEN_MESSENGER 25
 #define COUNT_OF_MESSENGER 15
 #define MAX_SIZE 250
-#define BUFFER_SIZE 1024
+
 
 typedef struct Contact{
     int id;
@@ -29,5 +29,7 @@ typedef struct Contact{
 int equal(Contact*, Contact*);
 Contact* createContact(int, char*, char*);
 int updateContact(Contact*, char*, char);
+int updateValueForArray(Contact*, char*, char, int);
 void printOneContactAllInfo(Contact*);
+void printOneContactSmallInfo(Contact*);
 #endif /* CONTACT_H */
