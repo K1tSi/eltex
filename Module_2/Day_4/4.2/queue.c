@@ -80,10 +80,10 @@ int getInformation(Queue* queue, short priority){
 
     } else if(priority < 0){
         while(tmp){
-            if(0-(short)tmp->priority <= priority) break;  // -100  > -99 не до конца ясно что за знак тут должен быть 
+            if(0-(short)tmp->priority >= priority) break;  // -100  > -99 не до конца ясно что за знак тут должен быть 
             tmp = tmp->next;
         }
-        if(!tmp) return -2;
+        if(!tmp) return -3;
         info = tmp->information;
 
         if(tmp->prev)
@@ -103,6 +103,7 @@ int getInformation(Queue* queue, short priority){
 void printQueue(Queue* queue){
     Node* tmp = queue->first;
     int index = 0;
+    if(!tmp) printf("Empty queue!\n");
     while(tmp){
         printf("Number in Queue: %-3d; Priority: %-3d; Value: %d\n", index++, tmp->priority, tmp->information);
         tmp= tmp->next;
