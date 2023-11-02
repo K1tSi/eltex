@@ -13,8 +13,12 @@ typedef struct Tree{
 } Tree;
 Tree* createTree();
 int insert(Tree*, Contact*);
-Contact* searchContact(Node*, int);
-void printTree(Node*);
-void printTreeAllInfo(Node*);
+Contact* searchContact(Node* root, int);
+Node* searchNode(Node* root, int);
+Node* getMinNode(Node *root);
+Node* getMaxNode(Node *root);
+int deleteContact(Tree*, int );
+void printTree(Node* root);
+void printTreeAllInfo(Node* root);
 void updateIndexContact(Node* root, char);
 #endif /* TREE_H_ */

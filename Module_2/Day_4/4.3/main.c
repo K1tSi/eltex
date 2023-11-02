@@ -12,6 +12,8 @@ int main()
     insert(treeContact, createContact(3,"Zikita", "Lebovski"));
     insert(treeContact, createContact(4,"Killer", "Bi"));
     insert(treeContact, createContact(5,"Aboba", "Kuriki"));
+    printTree(treeContact->root);
+    deleteContact(treeContact,4);
     //updateIndexContact(treeContact->root, 0);
     //updateIndexContact(treeContact->root, 0);
     printTree(treeContact->root);
