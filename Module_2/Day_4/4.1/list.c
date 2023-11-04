@@ -84,6 +84,7 @@ int inserting(List * list, Contact* con){           // вставка элеме
     if(next == NULL) list->head = tmp;
     if (list->last == NULL) {           // обработка ситуации, когда список пуст
         list->last = tmp;
+        list->size++;
         return 0;
     }
     while(equal(tmp->contact, next->contact)>=0 && next != NULL){   // пока разница между контактами больше нуля идём по циклу
@@ -106,8 +107,6 @@ int inserting(List * list, Contact* con){           // вставка элеме
         next->prev = tmp;
     }
 
-
-    //while(equal(tmp->contact))
     list->size++;
 }
 int insert(List * list, Contact* con){          // вставка в начало (не используется)

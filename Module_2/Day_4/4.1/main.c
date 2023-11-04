@@ -79,7 +79,7 @@ int main()
                 scanf("%d", &BUFFINT);
                 if(BUFFINT > listContact->size-1) break;
                 cont = getContact(listContact ,BUFFINT);
-
+		if(!cont) break;
                 printf("ID\t|Имя(a)\t|Фамилия(b)\t|Отчество(c)\t|Место_работы(d)\t|Должность(e)\t|Телефон(f)\t|Эл.почта(g)\t|Соцсеть(j)\t|Мессенджер(k) |\n");
                 printOneContactAllInfo(cont);
                 printf("Введите, что вы хотите обновить (введите один символ который указан после нужного поля)\n");
@@ -115,6 +115,7 @@ int main()
                 index = updateIndexContact(listContact);
                 break;    
             case 6:
+                deleteList(&listContact);
                 return 0;
                 break; 
             default:
