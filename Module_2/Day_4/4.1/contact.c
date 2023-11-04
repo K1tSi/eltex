@@ -8,6 +8,7 @@ int equal(Contact *con1, Contact * con2){
 }
 Contact* createContact(int id, char* name, char* lastname){
     Contact* contact = (Contact*)malloc(sizeof(Contact));
+    if(!contact) return contact;
     strncpy(contact->firstName, name, LEN_NAME);
     strncpy(contact->lastName, lastname, LEN_NAME);
     // Устанавливаем значения имени и фамилии 
@@ -24,6 +25,7 @@ Contact* createContact(int id, char* name, char* lastname){
     return contact;
 }
 int updateContact(Contact* contact, char* str, char whatUpdate){
+    if(!contact) return -12;
     int countNotNull = 0;
     if(whatUpdate == 'a'){
         strncpy(contact->firstName, str, LEN_NAME);
@@ -55,6 +57,7 @@ int updateContact(Contact* contact, char* str, char whatUpdate){
     return 0;
 }
 int updateValueForArray(Contact* contact, char* str, char whatUpdate, int num_change){
+    if(!contact) return -12;
     int countNotNull = 0;
     if(whatUpdate == 'f'){
         for(; strlen(contact->phoneNumbers[countNotNull])!=0; countNotNull++);
@@ -76,6 +79,7 @@ int updateValueForArray(Contact* contact, char* str, char whatUpdate, int num_ch
     return 0;
 }
 void printOneContactAllInfo(Contact* contact){
+    if(!contact) return;
     int countNotNull = 1;
     printf("%d\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", contact->id,
         contact->firstName, contact->lastName, contact->fatherName,
@@ -88,6 +92,7 @@ void printOneContactAllInfo(Contact* contact){
             contact->linksToSocialNetwork[countNotNull], contact->messengers[countNotNull]);
 }
 void printOneContactSmallInfo(Contact* contact){
+    if(!contact) return;
     printf("%d\t%-10s\t%-10s\t%-10s\t%-10s\n", contact->id,
         contact->firstName, contact->lastName,
         contact->phoneNumbers[0], contact->emails[0]);

@@ -23,21 +23,24 @@ Contact* getContact(List* list, int index) {        // найти контакт
 
 int deleteContact(List* list, int index) {        // удаление контакта с определённым индексом.
     Node *tmp = list->head;
- 
+    
     while (tmp && tmp->contact->id != index) {
         tmp = tmp->next;
     }
     if (!tmp) return -1;
     if(tmp == list->head){
         list->head = tmp->next;
+        if(tmp->next)
         tmp->next->prev = NULL;
     } else if (tmp == list->last) {
         list->last = tmp->prev;
+        if(tmp->prev)
         tmp->prev->next = NULL;
     }else{
         tmp->prev->next = tmp->next;
         tmp->next->prev = tmp->prev;
-    }  
+    } 
+    if(!tmp->prev && !tmp->next) {list->last = NULL; list->head = NULL;}
     free(tmp->contact);
     free(tmp);
     list->size--;
@@ -63,6 +66,7 @@ Contact* _deleteNodeSaveCont(List* list, int index) {        // удаление
     }  
     tmpCon = tmp->contact;
     free(tmp);
+    list->size--;
     return tmpCon;
 }
 

@@ -67,12 +67,14 @@ int main()
                 printf("Введите имя и фамилию:\n");
                 scanf("%s %s", BUFFER,BUFFER1);
                 inserting(listContact, createContact(index++,BUFFER, BUFFER1));
-
+		index = updateIndexContact(listContact);
                 break;
             case 2:
                 printf("ВведитеID удаляемого контакта:\n");
                 scanf("%d", &BUFFINT);
                 deleteContact(listContact, BUFFINT);
+                if(listContact->size > 0)
+                index = updateIndexContact(listContact);
                 break;
             case 3:
                 printf("Введите ID обновляемого контакта:\n");
@@ -100,7 +102,7 @@ int main()
                 printf("Введите новое значение поля:\n");
                 scanf("%s", BUFFER);
                 if(operation == 'a') changeContactName(listContact, BUFFINT,BUFFER); // это нужно для пересортировки по имени.
-                updateContact(cont, BUFFER, operation);
+                else updateContact(cont, BUFFER, operation);
                 cont = NULL;
                 break;
             case 4:
