@@ -32,4 +32,5 @@ int updateContact(Contact*, char*, char);
 int updateValueForArray(Contact*, char*, char, int);
 void printOneContactAllInfo(Contact*);
 void printOneContactSmallInfo(Contact*);
+void copyContact(Contact *con1, Contact * con2);
 #endif /* CONTACT_H */

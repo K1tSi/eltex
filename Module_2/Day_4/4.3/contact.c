@@ -8,6 +8,7 @@ int equal(Contact *con1, Contact * con2){
 }
 Contact* createContact(int id, char* name, char* lastname){
     Contact* contact = (Contact*)malloc(sizeof(Contact));
+    if(!contact) return contact;
     strncpy(contact->firstName, name, LEN_NAME);
     strncpy(contact->lastName, lastname, LEN_NAME);
     // Устанавливаем значения имени и фамилии 
@@ -24,6 +25,7 @@ Contact* createContact(int id, char* name, char* lastname){
     return contact;
 }
 int updateContact(Contact* contact, char* str, char whatUpdate){
+    if(!contact) return -11;
     int countNotNull = 0;
     if(whatUpdate == 'a'){
         strncpy(contact->firstName, str, LEN_NAME);
@@ -56,6 +58,7 @@ int updateContact(Contact* contact, char* str, char whatUpdate){
 }
 int updateValueForArray(Contact* contact, char* str, char whatUpdate, int num_change){
     int countNotNull = 0;
+    if(!contact) return -11;
     if(whatUpdate == 'f'){
         for(; strlen(contact->phoneNumbers[countNotNull])!=0; countNotNull++);
         if(countNotNull>=COUNT_OF_PHONE-1 || num_change >= countNotNull) return -2;
@@ -76,6 +79,7 @@ int updateValueForArray(Contact* contact, char* str, char whatUpdate, int num_ch
     return 0;
 }
 void printOneContactAllInfo(Contact* contact){
+    if(!contact) return;
     int countNotNull = 1;
     printf("%d\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", contact->id,
         contact->firstName, contact->lastName, contact->fatherName,
@@ -88,7 +92,31 @@ void printOneContactAllInfo(Contact* contact){
             contact->linksToSocialNetwork[countNotNull], contact->messengers[countNotNull]);
 }
 void printOneContactSmallInfo(Contact* contact){
+    if(!contact) return;
     printf("%d\t%-10s\t%-10s\t%-10s\t%-10s\n", contact->id,
         contact->firstName, contact->lastName,
         contact->phoneNumbers[0], contact->emails[0]);
+}
+void copyContact(Contact *con1, Contact * con2){
+    if(!con1 || !con2) return;
+    int countNotNull = 0;
+    con1->id = con2->id;
+    strncpy(con1->firstName, con2->firstName, LEN_NAME);
+    strncpy(con1->lastName, con2->lastName, LEN_NAME);
+    strncpy(con1->fatherName, con2->fatherName, LEN_NAME);
+    strncpy(con1->placeOfWork, con2->placeOfWork, LEN_WORK);
+    strncpy(con1->jobTitle, con2->jobTitle, LEN_WORK);
+    
+    for(; strlen(con2->linksToSocialNetwork[countNotNull]) !=0; countNotNull++)
+        strncpy(con1->linksToSocialNetwork[countNotNull], con2->linksToSocialNetwork[countNotNull], LEN_MESSENGER);   
+    countNotNull = 0;
+    for(; strlen(con2->emails[countNotNull])!=0; countNotNull++)
+        strncpy(con1->emails[countNotNull], con2->emails[countNotNull], LEN_EMAIL);
+    countNotNull = 0;
+    for(; strlen(con2->messengers[countNotNull])!=0; countNotNull++)
+        strncpy(con1->messengers[countNotNull], con2->messengers[countNotNull], LEN_MESSENGER);
+    countNotNull = 0;
+    for(; strlen(con2->phoneNumbers[countNotNull])!=0; countNotNull++)
+        strncpy(con1->phoneNumbers[countNotNull], con2->phoneNumbers[countNotNull], LEN_MESSENGER);
+
 }

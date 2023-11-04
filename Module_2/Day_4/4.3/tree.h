@@ -21,4 +21,8 @@ int deleteContact(Tree*, int );
 void printTree(Node* root);
 void printTreeAllInfo(Node* root);
 void updateIndexContact(Node* root, char);
+Node* genBalanceTree(Node** ArrayNode, int, int, Node* parent);
+void treeToArray(Node* root, Node** array, char);
+void balanseTree(Tree* tree);
+void deleteTree(Node* root);
 #endif /* TREE_H_ */
