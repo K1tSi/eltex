@@ -25,11 +25,12 @@ double mult(double a, double b){
     return a*b;
 }
 double pow2(double a, double b){
+    double res = a;
     while(b > 1){
-        a*=a;
+        res*=a;
         b--;
     }
-    return a;
+    return res;
 }
 //1 - x^2/ 2! + x^4/4! + ...+ (-1)^n x^2n/(2n)!	cos(x)
 double cos2(double a, double b){
