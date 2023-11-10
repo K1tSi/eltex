@@ -4,6 +4,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #define LEN_MODE 9
 #define COUNT_GROUP 4
 #define COUNT_PERM 3
@@ -11,7 +12,10 @@
   /*  mode_t    st_mode;         права доступа */
 int getPerm(char* filename, char* outInfo){ // 
     struct stat statfile;
-    stat(filename, &statfile);
+    if(stat(filename, &statfile) == -1){
+    	perror("getPerm");
+    	exit(1);
+    	}
     mode_t mode = statfile.st_mode;
     for(unsigned int i = 0; i < LEN_MODE; i++)
     {
@@ -24,7 +28,6 @@ int getPerm(char* filename, char* outInfo){ //
 int setPermRWX(char* filename, char* outInfo, char* conditions){ // 
     char buf1[LEN_MODE+1], groups[COUNT_GROUP+1], perms[COUNT_PERM+1], operation[2];
     unsigned char group = 0, perm = 0, op;
-    getPerm(filename, buf1);
     sscanf(conditions,"%[agou]%[+-=]%[rwx]",groups, operation, perms);
     //printf("%s %s %s\n", groups, operation, perms);
     for(int i = 0; i< COUNT_GROUP; i++){
