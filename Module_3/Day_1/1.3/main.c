@@ -7,11 +7,12 @@
 #include <string.h>
 #define MAX_COUNT_ARG 10
 #define MAX_LEN_ARG 50
+#define LINE_EXIT "exit\n"
 void done()
 {
     printf("Процесс (%d) завершил работу\n",getpid());
 }
-char** readarg(FILE* fd){
+char** readarg(FILE* fd){       // принимает файловый дескриптор(stdin) и читает оттуда строку с аргументами через пробел
     char buff[MAX_COUNT_ARG*MAX_LEN_ARG];
     char** arg = (char**)malloc(sizeof(char*)*MAX_COUNT_ARG);
     char* str;
@@ -40,6 +41,7 @@ int main(int argc, char* argv[]){
     while(1){
     printf("Enter prog\n>>>");
     arguments=readarg(stdin);
+    if(!strcmp(arguments[0],LINE_EXIT)) exit(EXIT_SUCCESS);
         switch(pid = fork()){
             case -1:
                 perror("fork");
