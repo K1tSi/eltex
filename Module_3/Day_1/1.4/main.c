@@ -28,7 +28,7 @@ char** readarg(FILE* fd){       // принимает файловый деск�
     while (str != NULL){
         arg[i] = (char*)malloc(sizeof(char)*MAX_LEN_ARG);
         strncpy(arg[i++], str, MAX_LEN_ARG);
-        str = strtok (NULL," "); // Выделение очередной части строки
+        str = strtok (NULL," \n"); // Выделение очередной части строки
     }
     arg[i]=NULL;
     return arg;
