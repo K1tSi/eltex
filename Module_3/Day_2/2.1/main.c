@@ -3,12 +3,21 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
+#define FILENAME "out.txt"
 int main(int argc, char *argv[]){
     pid_t pid;
     int pipefd[2];
-    pipe(pipefd);
+    if (pipe(pipefd) == -1) {
+        perror("pipe");
+        exit(EXIT_FAILURE);
+    }
     int N;
     FILE* p;
+    FILE* outfile=fopen(FILENAME, "w");
+    if(outfile==NULL) {
+        perror("file open");
+        exit(EXIT_FAILURE);
+    }
     if(argc > 1)
         sscanf(argv[1],"%d", &N);
     else exit(-1);
@@ -22,8 +31,7 @@ int main(int argc, char *argv[]){
             for(int i = 0; i < N; i++){
                 fprintf(p, "%d\n", rand()%1000); // \n нужно для выгрузки буффера
                 fflush(p);
-                for(int j = 0; j< 10000000; j++); // для замедления вывода, чтобы было нагляднее
-                //sleep(1);
+                sleep(1);
             }
             break;
         default:
@@ -33,6 +41,8 @@ int main(int argc, char *argv[]){
             for(int i = 0; i < N; i++){
                 fscanf(p, "%d", &out_integer);
                 printf("%d\n", out_integer);
+                fprintf(outfile, "%d\n", out_integer);
+                fflush(outfile);
             }
 
     }
