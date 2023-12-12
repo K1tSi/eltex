@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <sys/types.h>
-#define FILENAME "out.txt"
+#define FILENAME "outt.txt"
 
 
 static int flag = 0;
